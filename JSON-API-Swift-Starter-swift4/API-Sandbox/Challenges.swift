@@ -30,9 +30,9 @@ internal func exerciseOne() {
     // Do you see what we did there? We navigated down the JSON heirarchy, asked for "results",
     // then the first dictionary value of that array, then the dictionary stored in "name",
     // then the value stored in "first". We  then told it that we wanted the value as a string.
-    
     /*
      
+
      Now it's your turn to get the rest of the values needed to print the following:
      
      "<first name> <last name> lives at <street name> in <city>, <state>, <post code>.
@@ -41,9 +41,17 @@ internal func exerciseOne() {
      
      */
     
+//    let myFirstName = userData["results"][0]["name"]["first"].stringValue
+//    let lastName = userData["results"][0]["name"]["last"].stringValue
+//    let streetname = userData["results"][0]["location"]["street"].stringValue
+//    let city = userData["results"][0]["location"]["city"].stringValue
+//    let state = userData["results"][0]["location"]["state"].stringValue
+//    let postCode = userData["results"][0]["location"]["postcode"].intValue
+//    let title = userData["results"][0]["name"]["title"].stringValue
+//    let email = userData["results"][0]["email"].stringValue
+//    let cellPhone = userData["results"][0]["phone"].stringValue
     
-    
-    
+//    print("\(myFirstName) \(lastName) lives at \(streetname) in \(city), \(state), \(postCode). If you want to contact \(title). \(lastName), you can email \(email) or call at \(cellPhone)")
     
 }
 
@@ -66,8 +74,8 @@ internal func exerciseTwo() {
     let topMovieData = moviesData["feed"]["entry"][0]
     let topMovie = Movie(json: topMovieData)
     
-    // Uncomment this print statement when you are ready to check your code!
-    
+//     Uncomment this print statement when you are ready to check your code!
+//
 //    print("The top movie is \(topMovie.name) by \(topMovie.rightsOwner). It costs $\(topMovie.price) and was released on \(topMovie.releaseDate). You can view it on iTunes here: \(topMovie.link)")
 }
 
@@ -87,49 +95,77 @@ internal func exerciseThree() {
     
     // We've done you the favor of grabbing an array of JSON objects representing each movie
     let allMoviesData = moviesData["feed"]["entry"].arrayValue
+
     
-    /*
-     
-     Figure out a way to turn the allMoviesData array into Movie structs!
-     
-     */
+    // Figure out a way to turn the allMoviesData array into Movie structs!
     var allMovies: [Movie] = []
-    
-    
-    
-    
+
+   for eachMovie in allMoviesData{
+    let currentMovie = Movie(json: eachMovie)
+    allMovies.append(currentMovie)
+    }
+//
+//    print(allMovies[0])
+
+
     /*
      
      Uncomment the below print statement and then print out the names of the two Disney
      movies in allMovies. A movie is considered to be a "Disney movie" if `rightsOwner`
      contains the `String` "Disney". Iterate over all the values in `allMovies` to check!
      
-     */
-//    print("The following movies are Disney movies:")
+     
+     Movie(name: "Zootopia", rightsOwner: "© 2016 Disney Enterprises, Inc. All Rights Reserved", price: 19.990000000000002, link: "https://itunes.apple.com/us/movie/zootopia/id1084138493?uo=2", releaseDate: "March 4, 2016")
+     
+          */
+//   print("The following movies are Disney movies:")
+//    var disneyMovies = [String]()
+//    for eachMovie in allMovies{
+//        if eachMovie.rightsOwner.contains("Disney"){
+//            disneyMovies.append(eachMovie.name)
+//        }
+//    }
+//    print(disneyMovies)
     
+    var cheapMovie = [String: Double]()
     
-    
+//
+//    for eachMovie in allMovies{
+//        if eachMovie.price < 15.0{
+//            cheapMovie[eachMovie.name] = eachMovie.price
+//        }
+//    }
+//
+//    for (key, value) in cheapMovie {
+//        print("\(key): \(value)")
+//    }
+
+
+  //  print("The following movies are under $15... \(cheapMovieName)")
     
     /*
      
      Uncomment the below print statement and then print out the name and price of each
      movie that costs less than $15. Iterate over all the values in `allMovies` to check!
      
-     */
-//    print("The following movies are cost less than $15:")
-    
-    
-    
-    
-    /*
+     
+     
      
      Uncomment the below print statement and then print out the name and release date of
      each movie released in 2016. Iterate over all the values in `allMovies` to check!
      
      */
-//    print("The following movies were released in 2016:")
+    print("The following movies were released in 2016:")
     
+    var yearMovie = [String:String]()
+    for eachMovie in allMovies{
+        if eachMovie.releaseDate.contains("2016"){
+            yearMovie[eachMovie.name] = eachMovie.releaseDate
+        }
+    }
     
-    
-    
+    for (key, value) in yearMovie{
+        
+        print("\(key) was released in \(value)")
+    }
 }
